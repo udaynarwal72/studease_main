@@ -54,7 +54,7 @@ def loginUser(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("index")
         else:
             error_message = "Invalid username or password"
             return render(request, "login.html", {"error_message": error_message})
@@ -90,7 +90,7 @@ def signUpUser(request):
         else:
             print(f'User {username} already exists.')
 
-    return redirect("/")
+    return redirect("index")
 
 
 def userTimeTable(request):
@@ -101,3 +101,9 @@ def userTimeTable(request):
     sub_sections = SubSection.objects.all()
     time_tables = TimeTable.objects.all()
     return render(request, 'usertimetable.html', { 'username' : username, 'sub_sections': sub_sections, 'time_tables': time_tables})
+
+
+def homepage(request):
+    return render(request,"homepage.html")
+def base(request):
+    return render(request,"base.html")

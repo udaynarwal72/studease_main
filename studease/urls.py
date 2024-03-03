@@ -19,10 +19,12 @@ from django.urls import path,include
 from studease import views
 
 urlpatterns = [
-    path('',views.index,name="index"),
+    path('',views.homepage,name="homepage"),
     path('login',views.loginUser, name="login"), 
     path('logout',views.logoutUser, name="logout"),
     path('signup',views.signUpUser, name="signUp"), # type: ignore
     path('test', views.my_view, name="my_view"),
     path('usertimetable',views.userTimeTable,name="userTimeTable"),
+    path('base',views.base,name='base'),
+    path('index',views.index,name='index'),
 ]
