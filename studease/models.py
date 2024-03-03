@@ -6,25 +6,20 @@ from django.db import models
 class contact(models.Model):
     name = models.CharField(max_length=122,default='')
     email = models.CharField(max_length=122,default='')
-    date = models.DateField()
+    # date = models.DateField()
 
     def __str__(self):
         return self.name
-
-class loginDetails(models.Model):
-    username = models.CharField(max_length=122,default='')
-    password = models.CharField(max_length=122,default='')
-
-    def __str__(self):
-        return self.username
     
-class branchDetails(models.Model):
-    branch = models.CharField(max_length=122,default='')
-    section = models.IntegerField(max_length=122,default=0)
+class SubSection(models.Model):
+    sub_section_name = models.CharField(max_length=100,default='')
 
-    def __str__(self):
-        return self.branch
+class RollNumber(models.Model):
+    sub_section = models.ForeignKey(SubSection, on_delete=models.CASCADE)
+    roll_number = models.CharField(max_length=100)
 
-# class timeTable(models.Model):
-#     branch =  branchDetails.objects.all()[0].branch
-#     section =  branchDetails.objects.all()[0].section
+class TimeTable(models.Model):
+    roll_number = models.ForeignKey(RollNumber, on_delete=models.CASCADE)
+    class_name = models.CharField(max_length=100)
+    day = models.CharField(max_length=50)
+    time = models.TimeField()

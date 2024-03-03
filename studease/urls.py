@@ -24,4 +24,5 @@ urlpatterns = [
     path('logout',views.logoutUser, name="logout"),
     path('signup',views.signUpUser, name="signUp"), # type: ignore
     path('test', views.my_view, name="my_view"),
+    path('usertimetable',views.userTimeTable,name="userTimeTable"),
 ]
