@@ -1,22 +1,22 @@
-
-{% block content %}
-    <h2>Sub Sections, Roll Numbers, and Time Table</h2>
-    <table>
-        <tr>
-            <th>Sub Section Name</th>
-            <th>Roll Number</th>
-            <th>Class Name</th>
-            <th>Day</th>
-            <th>Time</th>
-        </tr>
-        {% for time_table in time_tables %}
-        <tr>
-            <td>{{ time_table.roll_number.sub_section.sub_section_name }}</td>
-            <td>{{ time_table.roll_number }}</td>
-            <td>{{ time_table.class_name }}</td>
-            <td>{{ time_table.day }}</td>
-            <td>{{ time_table.time }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-{% endblock %}
+<table>
+  <thead>
+    <tr>
+      <th>Sub Section</th>
+      <th>Roll Number</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for roll_number in roll_numbers %}
+    <tr>
+      <td>{{ roll_number.sub_section }}</td>
+      <td>{{ roll_number.roll_number }}</td>
+      <td>{{ roll_number.username }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3">No roll numbers found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

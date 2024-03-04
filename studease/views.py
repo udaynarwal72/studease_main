@@ -6,10 +6,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
+from studease.models import userfeedbacktable
 # from studease.models import YourNewTable
 # from .models import SubSection
 #It is the main index page
 from .models import RollNumber,SubSection,TimeTable
+
 def my_view(request):
     # Query the database using the model
     # data = loginDetails.objects.all()[0].username
@@ -25,12 +27,20 @@ def my_view(request):
     #     'user_data1':user_data,
     # }
     return render(request, 'test.html')
+
+
 def index(request):
     #variable can be sent through this method..
     #context is a dictonary of variables
-    data = User.objects.all()[0].username
-    context={
-            "variable": request.user
+    #it is used to fetch data from table
+    #we will replace this will request.user
+    print(request.user)
+    # request.user.username
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    # section = SubSection.objects.get(id=user.sub_section)
+    # print(usercreated.sub_section.sub_section_name)
+    indexcontext={
+            "welcomenote": usercreated.username
     }
     #this is used to flash message on the web page
     # if request.method =="POST":
@@ -40,12 +50,23 @@ def index(request):
     #     Contact.save()
     #     messages.success(request, "this is a text message")
     # print(request.user)
-    print(request.user)
+    print("hello")
+    if request.method == "POST":
+        print("hi")
+        feedbackfirstname= request.POST.get('feedbackfirstname')
+        feedbacklastname= request.POST.get('feedbacklastname')
+        feedbackemail= request.POST.get('feedbackemail')
+        feedbackmessage= request.POST.get('feedbackmessage')
+        print(feedbackfirstname)
+        print(feedbacklastname)
+        feedback = userfeedbacktable(feedbackfirstname=feedbackfirstname,feedbacklastname=feedbacklastname,feedbackemail=feedbackemail,feedbackmessage=feedbackmessage)
+        feedback.save()
+    # print(request.user)
     if request.user.is_anonymous:
         return redirect('login')
-    return render(request,'index.html',context)
-# Create your views here.
-#we use HttpResponse to render string directly..
+    return render(request,'index.html',indexcontext)
+
+
 def loginUser(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -61,11 +82,12 @@ def loginUser(request):
     else:
         return render(request, "login.html")
 
+
 def logoutUser(request):
     logout(request)
     return redirect("/login")
 
-#It is used to create user in DATA BASE
+
 def signUpUser(request):
     if request.method == 'POST':
         # Extract data from the form
@@ -93,17 +115,73 @@ def signUpUser(request):
     return redirect("index")
 
 
-def userTimeTable(request):
+def usertimetable(request):
     # name_value = YourNewTable.objects.all()[2]
     # desc_value = YourNewTable.objects.all()[2].description
-    username = request.user
-    print(username)
-    sub_sections = SubSection.objects.all()
-    time_tables = TimeTable.objects.all()
-    return render(request, 'usertimetable.html', { 'username' : username, 'sub_sections': sub_sections, 'time_tables': time_tables})
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    # section = SubSection.objects.get(id=user.sub_section)
+    # print(usercreated.sub_section.sub_section_name)
+
+    # logic to display date and time on website
+    current_datetime = datetime.now()
+    year = current_datetime.year
+    month = current_datetime.strftime("%B")
+    date = current_datetime.day
+    hour = current_datetime.hour
+    minute = current_datetime.minute
+    second = current_datetime.second
+    currentday = current_datetime.strftime("%A") 
+
+    #logic to display classes on that particular day 
+
+    sub_section_user = usercreated.sub_section
+    
+    print(sub_section_user)
+
+    timetable_variable = TimeTable.objects.filter(sub_section_id=sub_section_user)
+    print(timetable_variable)
+    if currentday == "Monday":
+        print("today is monday")
+        table_data = timetable_variable.values('monday','time')
+    if currentday == "Tuesday":
+        print("today is tuesday")
+        table_data = timetable_variable.values('tuesday','time')
+    if currentday == "Wednesday":
+        table_data = timetable_variable.values('wednesday','time')
+    if currentday == "Thursday":
+        table_data = timetable_variable.values('thursday','time')
+    if currentday == "Saturday":
+        table_data = timetable_variable.values('saturday','time')
+    print(table_data)
+    contextusertimetable={
+            "welcomenote": usercreated.username,
+            "currentday": currentday,
+            "year":year,
+            "month":month,
+            "hour":hour,
+            "minute":minute,
+            "second":second,
+            "date":date,
+            "display_table_data":table_data
+    }
+    return render(request, 'usertimetable.html',contextusertimetable) # type: ignore
 
 
 def homepage(request):
+    if not request.user.is_anonymous:
+        return redirect('index')
     return render(request,"homepage.html")
+
+
 def base(request):
     return render(request,"base.html")
+
+
+def test(request):
+    roll_numbers = RollNumber.objects.all().select_related('sub_section')
+    context = {'roll_numbers': roll_numbers}
+    return render(request,"test.html",context)
+
+
+def testweb(request):
+    return render(request,'testweb.html')
