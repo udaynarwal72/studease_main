@@ -12,6 +12,7 @@ from pusher_push_notifications import PushNotifications
 # from .models import SubSection
 #It is the main index page
 from .models import RollNumber,SubSection,TimeTable
+import uuid
 
 def my_view(request):
     # Query the database using the model
@@ -156,8 +157,10 @@ def usertimetable(request):
     if currentday == "Saturday":
         table_data = timetable_variable.values('saturday','time','newtime')
     print(table_data ,"\n")
+    print(request.user.id)
+    senduserid=str(uuid.uuid4())
     beams_client = PushNotifications(
-    instance_id='YOUR_INSTANCE_ID',
+    instance_id=str(uuid.uuid4()),
     secret_key='XTELaPqb7HwKBPXK5IB3P5bWmvaYbDvEvj6_W9v3sco',
     )
     response = beams_client.publish_to_interests(
@@ -187,6 +190,7 @@ def usertimetable(request):
 )
     print(response['publishId'])
     contextusertimetable={
+                "senduserid":senduserid,
                 "welcomenote": usercreated.username,
                 "currentday": currentday,
                 "year":year,
@@ -196,9 +200,9 @@ def usertimetable(request):
                 "second":second,
                 "date":date,
                 "display_table_data":table_data,
+
         }
     return render(request, 'usertimetable.html',contextusertimetable) # type: ignore
-
 
 def homepage(request):
     if request.method == "POST":

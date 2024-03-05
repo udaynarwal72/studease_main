@@ -125,7 +125,7 @@
   <script src="{% static "/mainservice.js" %}"></script>
   <script>
     const beamsClient = new PusherPushNotifications.Client({
-      instanceId: "YOUR_INSTANCE_ID",
+      instanceId: {{senduserid}},
     });
     console.log(beamsClient)
     beamsClient.start()
