@@ -13,7 +13,7 @@ from pusher_push_notifications import PushNotifications
 #It is the main index page
 from .models import RollNumber,SubSection,TimeTable
 import uuid
-
+from pusher import Pusher
 def my_view(request):
     # Query the database using the model
     # data = loginDetails.objects.all()[0].username
@@ -157,8 +157,10 @@ def usertimetable(request):
     if currentday == "Saturday":
         table_data = timetable_variable.values('saturday','time','newtime')
     print(table_data ,"\n")
-    print(request.user.id)
     senduserid=str(uuid.uuid4())
+    print(senduserid)
+
+
     beams_client = PushNotifications(
     instance_id=str(uuid.uuid4()),
     secret_key='XTELaPqb7HwKBPXK5IB3P5bWmvaYbDvEvj6_W9v3sco',
