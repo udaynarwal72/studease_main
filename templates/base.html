@@ -4,6 +4,9 @@
 <html lang="en">
 
 <head>
+  <script>
+  {% block script %}{% endblock script %}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
@@ -20,7 +23,9 @@
       <link rel=" stylesheet" href="{% static "/styles/templatemo-space-dynamic.css" %}">
   <link rel="stylesheet" href="{% static "/styles/animated.css" %}">
   <link rel="stylesheet" href="{% static "/styles/owl.css" %}">
+  <link rel="stylesheet" href="{% static "/assets/css/style.css" %}">
   <title>{% block title %}{% endblock title %}</title>
+  
   <style>
     {% block style %}{% endblock style %}
     * {
@@ -41,7 +46,7 @@
 </head>
 
 <body style="
-      background-image: url(https://i.pinimg.com/originals/85/04/77/850477fed08bfe98598082bcd309ce70.gif);
+      {% block backgroundcolor %}{% endblock backgroundcolor %}
       background-repeat: no-repeat;
       background-attachment: fixed;
       background-size: 10%;
@@ -67,14 +72,14 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="file:///C:/Users/gupta/Downloads/StudEase_Homepage/Homepage_files/index.html" class="logo">
+            <a href="" class="logo">
               <h4>STUD<span>EASE</span></h4>
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li class="scroll-to-section">
-                <a href="#top" class="">Home</a>
+                <a href="index" class="">Home</a>
               </li>
               <li class="scroll-to-section">
                 <a href="#about" class="">About Us</a>

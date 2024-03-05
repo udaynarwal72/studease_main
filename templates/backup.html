@@ -76,3 +76,40 @@
   
 
 </body></html>
+
+
+
+
+
+
+
+
+
+
+<div class="left">
+  <h2>{{currentday}}</h2>
+  <p>{{date}} {{month}}, {{year}}</p>
+</div>
+<div class="right">
+  <h1>81 %</h1>
+</div>
+</div>
+{% for entry in display_table_data %}
+{% if entry.monday != '' %}
+<div class="details">
+<div class="about">
+  <div class="subject">
+      <h2>{{ entry.monday }}</h2>
+      <p>Attended 18/19 Classes</p>
+      <button class="">{{entry.time}}</button>
+  </div>
+  <div class="about_it">
+      <h3>95 %</h3>
+      <div class="check">
+          <button class="button1">-</button><button class="button2">X</button><button class="button3">+</button>
+      </div>
+  </div>
+</div>
+</div>
+{% endif %}
+{% endfor %}

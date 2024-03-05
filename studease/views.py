@@ -77,8 +77,8 @@ def loginUser(request):
             login(request, user)
             return redirect("index")
         else:
-            error_message = "Invalid username or password"
-            return render(request, "login.html", {"error_message": error_message})
+            messages.error(request,'Invalid Username or Password')
+            return redirect("login")
     else:
         return render(request, "login.html")
 
@@ -92,22 +92,25 @@ def signUpUser(request):
     if request.method == 'POST':
         # Extract data from the form
         username = request.POST.get('username')
-        password = request.POST.get('pass1')
+        pass1 = request.POST.get('pass1')
+        pass2 = request.POST.get('pass2')
         email = request.POST.get('email')
 
         # Check if the user already exists
         if not User.objects.filter(username=username).exists():
             # Create a new user
-            user = User.objects.create_user(username, email, password)
+            if pass1==pass2:
+                user = User.objects.create_user(username, email, pass1)
 
-            # Additional fields (optional)
-            user.first_name = request.POST.get('fname', '')
-            user.last_name = request.POST.get('lname', '')
-            user.save()
+                # Additional fields (optional)
+                user.first_name = request.POST.get('fname', '')
+                user.last_name = request.POST.get('lname', '')
+                user.save()
 
-            #log in the user
-            login(request, user)
-
+                #log in the user
+                login(request, user)
+            else:
+                return HttpResponse("Password doesn't match")
             print(f'User {username} created successfully.')
         else:
             print(f'User {username} already exists.')
@@ -135,35 +138,35 @@ def usertimetable(request):
     #logic to display classes on that particular day 
 
     sub_section_user = usercreated.sub_section
-    
     print(sub_section_user)
-
     timetable_variable = TimeTable.objects.filter(sub_section_id=sub_section_user)
     print(timetable_variable)
+
     if currentday == "Monday":
         print("today is monday")
-        table_data = timetable_variable.values('monday','time')
+        table_data = timetable_variable.values('monday','time','newtime')
     if currentday == "Tuesday":
         print("today is tuesday")
-        table_data = timetable_variable.values('tuesday','time')
+        table_data = timetable_variable.values('tuesday','time','newtime')
     if currentday == "Wednesday":
-        table_data = timetable_variable.values('wednesday','time')
+        table_data = timetable_variable.values('wednesday','time','newtime')
     if currentday == "Thursday":
-        table_data = timetable_variable.values('thursday','time')
+        table_data = timetable_variable.values('thursday','time','newtime')
     if currentday == "Saturday":
-        table_data = timetable_variable.values('saturday','time')
-    print(table_data)
+        table_data = timetable_variable.values('saturday','time','newtime')
+    print(table_data ,"\n")
+
     contextusertimetable={
-            "welcomenote": usercreated.username,
-            "currentday": currentday,
-            "year":year,
-            "month":month,
-            "hour":hour,
-            "minute":minute,
-            "second":second,
-            "date":date,
-            "display_table_data":table_data
-    }
+                "welcomenote": usercreated.username,
+                "currentday": currentday,
+                "year":year,
+                "month":month,
+                "hour":hour,
+                "minute":minute,
+                "second":second,
+                "date":date,
+                "display_table_data":table_data,
+        }
     return render(request, 'usertimetable.html',contextusertimetable) # type: ignore
 
 
@@ -185,3 +188,7 @@ def test(request):
 
 def testweb(request):
     return render(request,'testweb.html')
+
+
+def usertimetableindex(request):
+    return render(request,'usertimetableindex.html')

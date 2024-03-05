@@ -28,4 +28,5 @@ urlpatterns = [
     path('base',views.base,name='base'),
     path('index',views.index,name='index'),
     path('webtest',views.testweb,name='webtest'),
+    path('usertimetableindex',views.usertimetableindex,name='usertimetableindex')
 ]

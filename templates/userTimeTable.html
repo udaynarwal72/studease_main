@@ -1,120 +1,127 @@
-    {% extends "base.html" %}
-    {% block title %}StudEase-By Code Comets{% endblock title %}
-    {% block hello %}
-    {{welcomenote}}
-    {% endblock hello %}
-    {% block style %}
-      .main{
-        margin-top: 80px;
-        padding-top: 20px;
-        background-color: rgb(243, 74, 74);
-        color: white;
-      }
-      .top{
-        display: flex;
-        justify-content: space-around;
-      }
-      .top h1{
-        border: 1px solid black;
-        padding: 20px;
-        border-radius: 100px;
-      }
-      .top p{
-        font-weight: 300;
-        font-size: 1.1rem;
-        color: white;
-      }
-      .buttons{
-        display: flex;
-        justify-content: space-around;
-        margin-top: 2.5rem;
-      }
-      .buttons button{
-        background-color: rgb(243, 84, 84);
-        width: 8rem;
-        height: 2.5rem;
-        color: white;
-        border: none;
-        border-radius: 20px;
-      }
-      .details{
-        
-        padding: 0 20px;
-        background-color: white;
-        width: 60%;
-        margin:  0 auto;
-        border-radius: 30px;
-      }
-      .about{
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-      }
-      .details h2,h3{
-        color: black;
-      }
-      .details p{
-        color: rgb(52, 51, 51);
-        font-weight: 300;
-      }
-      .subject button{
-        border: 2px solid rgb(39, 176, 230);
-        background-color: rgb(186, 223, 238);
-        color: rgb(39, 176, 230);
-        margin-top: 20px;
-        border-radius: 15px
-      }
-      .about_it button{
-        margin-top: 40px;
-        margin-right: 20px;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 20px;
-        border: none;
-      }
-      .button1{
-        background-color: orange;
-        color: white;
-      }
-      .button2{
-        background-color: rgb(239, 38, 38);
-        color: white;
-      }
-      .button3{
-        background-color: rgb(91, 236, 91);
-        color: white;
-      }
-    {% endblock style %}
-{% block body %}
-<div class="main">
-    <div class="top">
-        <div class="left">
-            <h2>{{currentday}}</h2>
-            <p>{{date}} {{month}}, {{year}}</p>
-        </div>
-        <div class="right">
-            <h1>81 %</h1>
-        </div>
+{% extends "base.html" %}
+  {% load static %}
+  {% load humanize %}
+  {% comment %} {% load my_templatetags %} {% endcomment %}
+  {% comment %} {% load django_filters %} {% endcomment %}
+  {% comment %} {% load your_custom_filters %} {% endcomment %}
+  {% block script %}document.getElementsByTagName("html")[0].className += " js";{% endblock script %}
+  {% block csslink %}{% endblock csslink %}
+  {% block Title %}StudEase{% endblock Title %}
+  {% block body %}
+  {% block hello %}{{welcomenote}}{% endblock hello %}
+    {% comment %} {% block backgroundcolor %}background: #ec008c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    {% endblock backgroundcolor %} {% endcomment %}
+  <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+    <div class="cd-schedule__timeline">
+      <ul>
+        <li><span>08:00</span></li>
+        <li><span>08:30</span></li>
+        <li><span>09:00</span></li>
+        <li><span>09:30</span></li>
+        <li><span>10:00</span></li>
+        <li><span>10:30</span></li>
+        <li><span>11:00</span></li>
+        <li><span>11:30</span></li>
+        <li><span>12:00</span></li>
+        <li><span>12:30</span></li>
+        <li><span>13:00</span></li>
+        <li><span>13:30</span></li>
+        <li><span>14:00</span></li>
+        <li><span>14:30</span></li>
+        <li><span>15:00</span></li>
+        <li><span>15:30</span></li>
+        <li><span>16:00</span></li>
+        <li><span>16:30</span></li>
+        <li><span>17:00</span></li>
+        <li><span>17:30</span></li>
+        <li><span>18:00</span></li>
+        <li><span>18:30</span></li>
+      </ul>
+    </div> <!-- .cd-schedule__timeline -->
+    
+    <div class="cd-schedule__events">
+      <ul>
+        <li class="cd-schedule__group">
+          <div class="cd-schedule__top-info"><h1><span>{{currentday}}</span></h1></div>
+          <ul>
+            {% for entry in display_table_data %}
+            
+            {% if currentday == 'Monday' %}
+            {% if entry.monday != '' %}
+                <li class="cd-schedule__event">
+                    <a data-start="{{ entry.time|date:'H:i' }}" data-end="{{ entry.newtime|date:'H:i' }}" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                        <em class="cd-schedule__name">{{entry.monday}}</em>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if currentday == 'Tuesday' %}
+            {% if entry.tuesday != '' %}
+                <li class="cd-schedule__event">
+                    <a data-start="{{ entry.time|date:'H:i' }}" data-end="{{ entry.newtime|date:'H:i' }}" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                        <em class="cd-schedule__name">{{entry.tuesday}}</em>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if currentday == 'Wednesday' %}
+            {% if entry.wednesday != '' %}
+                <li class="cd-schedule__event">
+                    <a data-start="{{ entry.time|date:'H:i' }}" data-end="{{ entry.newtime|date:'H:i' }}" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                        <em class="cd-schedule__name">{{entry.wednesday}}</em>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if currentday == 'Thursday' %}
+            {% if entry.thursday != '' %}
+                <li class="cd-schedule__event">
+                    <a data-start="{{ entry.time|date:'H:i' }}" data-end="{{ entry.newtime|date:'H:i' }}" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                        <em class="cd-schedule__name">{{entry.thursday}}</em>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% if currentday == 'Friday' %}
+            {% if entry.friday != '' %}
+                <li class="cd-schedule__event">
+                    <a data-start="{{ entry.time|date:'H:i' }}" data-end="{{ entry.newtime|date:'H:i' }}" data-content="event-abs-circuit" data-event="event-2" href="#0">
+                        <em class="cd-schedule__name">{{entry.friday}}</em>
+                    </a>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
     </div>
-    {% for entry in display_table_data %}
-    {% if entry.monday != '' %}
-    <div class="details">
-        <div class="about">
-            <div class="subject">
-                <h2>{{ entry.monday }}</h2>
-                <p>Attended 18/19 Classes</p>
-                <button class="">{{entry.time}}</button>
-            </div>
-            <div class="about_it">
-                <h3>95 %</h3>
-                <div class="check">
-                    <button class="button1">-</button><button class="button2">X</button><button class="button3">+</button>
-                </div>
-            </div>
+  <br> <br> <br> <br> <br> 
+    <div class="cd-schedule-modal">
+      <header class="cd-schedule-modal__header">
+        <div class="cd-schedule-modal__content">
+          <span class="cd-schedule-modal__date"></span>
+          <h3 class="cd-schedule-modal__name"></h3>
         </div>
+  
+        <div class="cd-schedule-modal__header-bg"></div>
+      </header>
+  
+      <div class="cd-schedule-modal__body">
+        <div class="cd-schedule-modal__event-info"></div>
+        <div class="cd-schedule-modal__body-bg"></div>
+      </div>
+  
+      <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
     </div>
-    {% endif %}
-    {% endfor %}
-</div>
-{% endblock body %}
+  
+    <div class="cd-schedule__cover-layer"></div>
+  </div> <!-- .cd-schedule -->
+
+  <script src="{% static "/assets/js/util.js" %} "></script> <!-- util functions included in the CodyHouse framework -->
+  <script src="{% static "/assets/js/main.js" %} "></script>
+  {% endblock body %}
+</html>
