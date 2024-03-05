@@ -48,7 +48,6 @@
           <div class="cd-schedule__top-info"><h1><span>{{currentday}}</span></h1></div>
           <ul>
             {% for entry in display_table_data %}
-            
             {% if currentday == 'Monday' %}
             {% if entry.monday != '' %}
                 <li class="cd-schedule__event">
@@ -123,5 +122,23 @@
 
   <script src="{% static "/assets/js/util.js" %} "></script> <!-- util functions included in the CodyHouse framework -->
   <script src="{% static "/assets/js/main.js" %} "></script>
+  <script src="{% static "/mainservice.js" %}"></script>
+  <script>
+    const beamsClient = new PusherPushNotifications.Client({
+      instanceId: "YOUR_INSTANCE_ID",
+    });
+    console.log(beamsClient)
+    beamsClient.start()
+    .then(() => beamsClient.addDeviceInterest('donuts'))
+      .catch(console.error);
+      beamsClient.onNotificationReceived = ({
+        payload,
+        pushEvent,
+        handleNotification,
+      }) => {
+        payload.notification.title = "A new title!";
+        pushEvent.waitUntil(handleNotification(payload));
+      };
+  </script>
   {% endblock body %}
 </html>

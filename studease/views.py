@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
 from studease.models import userfeedbacktable
+from pusher_push_notifications import PushNotifications
 # from studease.models import YourNewTable
 # from .models import SubSection
 #It is the main index page
@@ -155,7 +156,36 @@ def usertimetable(request):
     if currentday == "Saturday":
         table_data = timetable_variable.values('saturday','time','newtime')
     print(table_data ,"\n")
-
+    beams_client = PushNotifications(
+    instance_id='YOUR_INSTANCE_ID',
+    secret_key='XTELaPqb7HwKBPXK5IB3P5bWmvaYbDvEvj6_W9v3sco',
+    )
+    response = beams_client.publish_to_interests(
+    interests=['donuts'],
+    publish_body={
+    'apns': {
+      'aps': {
+        'alert': {
+          'title': 'Hello',
+          'body': 'Hello, world!',
+        },
+      },
+    },
+    'fcm': {
+      'notification': {
+        'title': 'Hello',
+        'body': 'Hello, world!',
+      },
+    },
+    'web': {
+      'notification': {
+        'title': 'Hello',
+        'body': 'Hello, world!',
+      },
+    },
+  },
+)
+    print(response['publishId'])
     contextusertimetable={
                 "welcomenote": usercreated.username,
                 "currentday": currentday,
@@ -171,6 +201,16 @@ def usertimetable(request):
 
 
 def homepage(request):
+    if request.method == "POST":
+        print("hi")
+        feedbackfirstname= request.POST.get('feedbackfirstname')
+        feedbacklastname= request.POST.get('feedbacklastname')
+        feedbackemail= request.POST.get('feedbackemail')
+        feedbackmessage= request.POST.get('feedbackmessage')
+        print(feedbackfirstname)
+        print(feedbacklastname)
+        feedback = userfeedbacktable(feedbackfirstname=feedbackfirstname,feedbacklastname=feedbacklastname,feedbackemail=feedbackemail,feedbackmessage=feedbackmessage)
+        feedback.save()
     if not request.user.is_anonymous:
         return redirect('index')
     return render(request,"homepage.html")
@@ -191,4 +231,37 @@ def testweb(request):
 
 
 def usertimetableindex(request):
+
     return render(request,'usertimetableindex.html')
+
+
+def buddyship(request):
+
+    if request.method =="POST":
+        usertimestart=request.POST.get('timestart')
+        usertimeend = request.POST.get('timeend')
+        userday=request.POST.get('')
+
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    current_datetime = datetime.now()
+    year = current_datetime.year
+    month = current_datetime.strftime("%B")
+    date = current_datetime.day
+    hour = current_datetime.hour
+    minute = current_datetime.minute
+    second = current_datetime.second
+    currentday = current_datetime.strftime("%A")
+
+    time_empty= TimeTable.objects.filter(monday='')
+    print(time_empty.values('sub_section_id'))
+    # sub_section_available= time_empty.sub_section_name
+
+    # print(sub_section_available)
+    context ={
+        "welcomenote": usercreated.username,
+
+    }
+    return render(request,'buddyship.html',context)
+
+def serviceworker(request):
+    return render(request,'service-worker.js')

@@ -28,5 +28,7 @@ urlpatterns = [
     path('base',views.base,name='base'),
     path('index',views.index,name='index'),
     path('webtest',views.testweb,name='webtest'),
-    path('usertimetableindex',views.usertimetableindex,name='usertimetableindex')
+    path('usertimetableindex',views.usertimetableindex,name='usertimetableindex'),
+    path('buddyship',views.buddyship,name='buddyship'),
+    path('serviceworker', views.serviceworker,name='serviceworker')
 ]

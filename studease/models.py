@@ -50,3 +50,4 @@ class userfeedbacktable(models.Model):
     feedbackmessage=models.CharField(max_length=100)
     def __str__(self):
         return self.feedbackemail
+    
