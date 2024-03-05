@@ -87,7 +87,7 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect("/login")
+    return redirect("/")
 
 
 def signUpUser(request):
@@ -157,13 +157,13 @@ def usertimetable(request):
     if currentday == "Saturday":
         table_data = timetable_variable.values('saturday','time','newtime')
     print(table_data ,"\n")
-    senduserid=str(uuid.uuid4())
+    senduserid=uuid.uuid4()
     print(senduserid)
 
 
     beams_client = PushNotifications(
-    instance_id=str(uuid.uuid4()),
-    secret_key='XTELaPqb7HwKBPXK5IB3P5bWmvaYbDvEvj6_W9v3sco',
+    instance_id='55ce1d19-843c-4b89-8476-fa7f264cba16',
+    secret_key='CD131592DFB7DAA3E3D7F5AC314182F0D26A7D08002D90A731733A75B390D3AA',
     )
     response = beams_client.publish_to_interests(
     interests=['donuts'],

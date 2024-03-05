@@ -125,7 +125,7 @@
   <script src="{% static "/mainservice.js" %}"></script>
   <script>
     const beamsClient = new PusherPushNotifications.Client({
-      instanceId: {{ senduserid }},
+      instanceId: '55ce1d19-843c-4b89-8476-fa7f264cba16',
     });
     console.log(beamsClient)
     beamsClient.start()
@@ -136,9 +136,12 @@
         pushEvent,
         handleNotification,
       }) => {
+        console.log("hello world")
         payload.notification.title = "A new title!";
         pushEvent.waitUntil(handleNotification(payload));
+
       };
+
   </script>
   {% endblock body %}
 </html>
