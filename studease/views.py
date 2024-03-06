@@ -262,6 +262,9 @@ def periodreturn(val):
         return 'p10'
 
 def buddyship(request):
+    return render(request,'buddyship.html')
+
+def resultbuddyship(request):
     print('hello')
     usercreated = RollNumber.objects.get(roll_number=request.user.username)
     sub_section_free_value={}
@@ -302,11 +305,22 @@ def buddyship(request):
                 "welcomenote": usercreated.username,
                 'sub_section_free_value':sub_section_free_value,
             }
-    return render(request,'buddyship.html',context)
+    return render(request,'resultbuddyship.html',context)
 
 def serviceworker(request):
     return render(request,'service-worker.js')
 
-
-def resultbuddyship(request):
-    return render(request,'resultbuddyship.html')
+def vacantvenue(request):
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    if request.method =="POST":
+        my_datetime_str = request.POST.get('datetime')
+            # Convert the string to a datetime object
+        if my_datetime_str is not None:
+            my_datetime = datetime.strptime(my_datetime_str, '%Y-%m-%dT%H:%M')
+            print(my_datetime)
+            day_of_week = my_datetime.strftime('%A')
+            time_of_day = my_datetime.strftime('%H:%M')
+    context={
+        "welcomenote": usercreated.username,
+    }
+    return render(request,'vacantvenue.html',context)

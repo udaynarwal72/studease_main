@@ -196,13 +196,13 @@
                 attendance.
               </p>
             </div>
-            <a href="usertimetable">
+            
             <div class="showed-content">
                 <img src="{% static "/img/circle-75-percent-png.png" %} "
                 alt=""
                 />
               </div>
-            </a>
+            
             </div>
           </div>
           <div class=" col-lg-3 col-sm-6">
@@ -222,11 +222,13 @@
                     well-organised schedule.
                   </p>
                 </div>
+                <a href="usertimetable">
                 <div class="showed-content">
                   <img src="{% static "/img/concept-daily-routine-red-simple-600nw-242954878.jpg" %} "
                   alt=""
                 />
               </div>
+            </a>
             </div>
           </div>
           <div class=" col-lg-3 col-sm-6">
@@ -239,15 +241,17 @@
                 -moz-animation-delay: 0.5s;
                 animation-delay: 0.5s;
               ">
-                    <div class="hidden-content">
-                      <h4>Vacant Venue</h4>
-                      <p>Informs about Available and Unavaliable Classrooms.</p>
-                    </div>
-                    <div class="showed-content" style="padding-top: 80px">
-                      <img style="height: 600%" src="{% static "/img/error-404-concept-illustration_114360-1811.jpg" %} "
-                  alt=""
-                />
-              </div>
+                <a href="vacantvenue">
+                      <div class="hidden-content">
+                        <h4>Vacant Venue</h4>
+                        <p>Informs about Available and Unavaliable Classrooms.</p>
+                      </div>
+                      <div class="showed-content" style="padding-top: 80px">
+                        <img style="height: 600%" src="{% static "/img/error-404-concept-illustration_114360-1811.jpg" %} "
+                        alt=""
+                        />
+                      </div>
+                </a>
             </div>
           </div>
           <div class=" col-lg-3 col-sm-6">
@@ -303,7 +307,7 @@
                   <div id="contact" class="contact-us section">
                     <div class="container">
                       <div class="row">
-                        <div style="background-color: rgb(67, 114, 136); border-radius: 15px"
+                        <div style="background-color: rgb(67, 114, 136,0.8); border-radius: 20px"
                           class="col-lg-6 align-self-center wow fadeInLeft" data-wow-duration="0.5s"
                           data-wow-delay="0.25s">
                           <div class="section-heading">
@@ -320,7 +324,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
+                        <div class="col-lg-6 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s" >
                           <form id="contact" action="index" method="post">
                             {% csrf_token %}
                             <div class="row">
@@ -365,7 +369,6 @@
                     </div>
                   </div>
     <br /><br /><br />
-    <hr />
     <br /><br /><br />
     
     <div style=" background-color: rgba(248, 70, 70, 0.721);" id="about" class="about-us section">

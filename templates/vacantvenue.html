@@ -34,15 +34,7 @@
     font-weight: 400;
     font-style: normal;
   }
-  #result{
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 500;
-    margin-left: inherit;
-   margin-top: 5px;
-    left: 740px;
-    background-color:#ec968a7f ;
-    border: #1a1a1a 2px solid;
-  }
+
   body {
     background-image: url(https://i.pinimg.com/originals/85/04/77/850477fed08bfe98598082bcd309ce70.gif);
     no-repeat center center/cover,
@@ -50,36 +42,38 @@
     size: 30%;
     margin: 0;
     font-family: "Arial", sans-serif;
+    height: 100vh;
     user-select: none;
   }
+
   #dabba {
-    align-items: center;
-    align-content: center;
-    text-align: center;
     margin-top:200px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     text-align: center;
-    height:fit-content;
-    width: 400px;
-    margin-left:35%;
+    height:20vh;
+    width: fit-content;
+    margin-left:40px;
   }
   #dabba {
     box-shadow: 0 0 20px rgba(255, 165, 165, 0.5);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   }
+
   input[type="datetime-local"],
   input[type="submit"] {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.2);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
   }
+
   h1 {
     font-family: "Poppins", sans-serif;
     font-weight: 800;
     color: #333;
   }
+
   input[type="datetime-local"] {
     padding: 10px;
     margin: 15px 0;
@@ -89,6 +83,7 @@
     border-radius: 5px;
     outline: none;
   }
+
   button {
     background: linear-gradient(45deg, #ffb6c1, #f81717);
     color: #fff;
@@ -99,6 +94,7 @@
     cursor: pointer;
     transition: background 0.3s ease;
   }
+
   button:hover {
     background: linear-gradient(45deg, #d4506d, #ffb6c1);
   }
@@ -107,20 +103,79 @@
     background-color: #1a1a1a;
     padding: 20px 0;
   }
+  select {
+    margin-top:10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none;
+    background-color: #fff;
+    margin-bottom:20px;
+  }
+
+  /* Custom styles for the dropdown arrow */
+  select::-ms-expand {
+    display: none;
+  }
+
+  select::after {
+    content: '\25BC'; /* Unicode character for a downward-pointing triangle */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  /* Stylish hover effect */
+  select:hover {
+    border-color: #555;
+  }
+
+  /* Stylish focus effect */
+  select:focus {
+    outline: none;
+    border-color: #00f;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+  }
 {% endblock style %}
 {% comment %} {% block footerbottom %}positon:fixed;{% endblock footerbottom %} {% endcomment %}
 {% block body %}
 {% block backgroundcolor %}{% endblock backgroundcolor %}
 <div class="parent-parent-container">
     <div class="parent-container">
-        <div  class="datetime-container" id="dabba">
+        <div class="datetime-container" id="dabba">
             <h1>Enter date & time</h1>
-            <form action="resultbuddyship" method="post">
+            <form action="vacantvenue" method="post">
               {% csrf_token %}
-                <input type="datetime-local" name="datetime" id="datetime" required />
+                <input type="datetime-local" name="datetime" id="datetime"/>
                 <br/>
-                <button style="margin-bottom: 15px;" type="submit" id="form-submit">Submit</button>
+                <button type="submit" id="form-submit">Submit</button>
             </form>
+            <div class=" col-lg-3 col-sm-6">
+                <div class="item wow bounceInUp animated animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
+              visibility: visible;
+              -webkit-animation-duration: 1s;
+              -moz-animation-duration: 1s;
+              animation-duration: 1s;
+              -webkit-animation-delay: 0.5s;
+              -moz-animation-delay: 0.5s;
+              animation-delay: 0.5s;
+            ">
+              <a href="vacantvenue">
+                    <div class="hidden-content">
+                      <h4>Vacant Venue</h4>
+                      <p>Informs about Available and Unavaliable Classrooms.</p>
+                    </div>
+                    <div class="showed-content" style="padding-top: 80px">
+                      <img style="height: 600%" src="{% static "/img/error-404-concept-illustration_114360-1811.jpg" %} "
+                      alt=""
+                      />
+                    </div>
+              </a>
+          </div>
+        </div>
         </div>
     </div>
 </div>
