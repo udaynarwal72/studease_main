@@ -118,7 +118,7 @@
     flex-wrap:wrap;
     justify-content: space-evenly;
     ">
-    {% if entry in sub_section_free_value %}
+    {% comment %} {% if entry in sub_section_free_value %} {% endcomment %}
     {% for entry in sub_section_free_value %}
     <div id="name" class="item wow bounceInUp animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
     visibility: visible;
@@ -146,7 +146,7 @@
 </div>
 
 {% endfor %}
-{% else %}
+{% comment %} {% else %}
 <div id="name" class="item wow bounceInUp animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
 visibility: visible;
 -webkit-animation-duration: 1s;
@@ -175,7 +175,7 @@ width:100px;
     <h4>No data found</h4>
 </div>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
     </div>
 </div>
 {% endblock body %}

@@ -319,29 +319,29 @@ def resultvacantvenue(request):
             print(my_datetime)
             day_of_week = my_datetime.strftime('%A')
             time_of_day = my_datetime.strftime('%H:%M')
-            dummy_vacantvenue= vacantvenue.objects.filter(day=day_of_week,p1=0,p2=0,p3=0,p4=0,p5=0,p6=0,p7=0,p8=0,p9=0,p10=0)
-            if periodreturn(time_of_day)=='p1':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p2':
-                vacant=dummy_vacantvenue.get('room')
-                print(vacant.room)
-            if periodreturn(time_of_day)=='p3':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p4':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p5':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p6':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p7':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p8':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p9':
-                vacant=dummy_vacantvenue.values('room')
-            if periodreturn(time_of_day)=='p10':
-                vacant=dummy_vacantvenue.values('room')
-            print(vacantvenue)
+            dummy_vacantvenue= vacantvenue.objects.filter(day=day_of_week)
+            # print(periodreturn(time_of_day))
+            if periodreturn(time_of_day) is'p1':
+                vacant = dummy_vacantvenue.filter(p1=0).values('room')
+            if periodreturn(time_of_day) is 'p2':
+                vacant = dummy_vacantvenue.filter(p2=0).values('room')
+                print(vacant)
+            if periodreturn(time_of_day) is 'p3':
+                vacant = dummy_vacantvenue.filter(p3=0).values('room')
+            if periodreturn(time_of_day) is 'p4':
+                vacant = dummy_vacantvenue.filter(p4=0).values('room')
+            if periodreturn(time_of_day) is 'p5':
+                vacant = dummy_vacantvenue.filter(p5=0).values('room')
+            if periodreturn(time_of_day) is 'p6':
+                vacant = dummy_vacantvenue.filter(p6=0).values('room')
+            if periodreturn(time_of_day) is 'p7':
+                vacant = dummy_vacantvenue.filter(p7=0).values('room')
+            if periodreturn(time_of_day) is 'p8':
+                vacant = dummy_vacantvenue.filter(p8=0).values('room')
+            if periodreturn(time_of_day) is 'p9':
+                vacant = dummy_vacantvenue.filter(p9=0).values('room')
+            if periodreturn(time_of_day) is 'p10':
+                vacant = dummy_vacantvenue.filter(p10=0).values('room')
         else:
             print("Error: my_datetime_str is None")
     context={
@@ -349,3 +349,7 @@ def resultvacantvenue(request):
         'vacantvenue':vacant
     }
     return render(request,'resultvacantvenue.html',context)
+
+
+def roomrover(request):
+    return render(request,'roomrover.html')
