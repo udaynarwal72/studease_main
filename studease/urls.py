@@ -31,6 +31,7 @@ urlpatterns = [
     path('usertimetableindex',views.usertimetableindex,name='usertimetableindex'),
     path('buddyship',views.buddyship,name='buddyship'),
     path('serviceworker', views.serviceworker,name='serviceworker'),
-    path('vacantvenue',views.vacantvenue,name='vacantvenue'),
+    path('vacantvenue',views.vacantvenues,name='vacantvenue'),
+    path('resultvacantvenue',views.resultvacantvenue,name='resultvacantvenue'),
     path('resultbuddyship',views.resultbuddyship,name='resultbuddyship')
 ]

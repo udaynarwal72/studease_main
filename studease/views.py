@@ -8,12 +8,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
 from studease.models import userfeedbacktable
 from pusher_push_notifications import PushNotifications
-# from studease.models import YourNewTable
-# from .models import SubSection
-#It is the main index page
-from .models import RollNumber,SubSection,TimeTable
-import uuid
-from pusher import Pusher
+from .models import RollNumber,SubSection,TimeTable, vacantvenue # type: ignore
 def my_view(request):
     # Query the database using the model
     # data = loginDetails.objects.all()[0].username
@@ -126,7 +121,6 @@ def usertimetable(request):
     usercreated = RollNumber.objects.get(roll_number=request.user.username)
     # section = SubSection.objects.get(id=user.sub_section)
     # print(usercreated.sub_section.sub_section_name)
-
     # logic to display date and time on website
     current_datetime = datetime.now()
     year = current_datetime.year
@@ -136,14 +130,11 @@ def usertimetable(request):
     minute = current_datetime.minute
     second = current_datetime.second
     currentday = current_datetime.strftime("%A") 
-
     #logic to display classes on that particular day 
-
     sub_section_user = usercreated.sub_section
     print(sub_section_user)
     timetable_variable = TimeTable.objects.filter(sub_section_id=sub_section_user)
     print(timetable_variable)
-
     if currentday == "Monday":
         print("today is monday")
         table_data = timetable_variable.values('monday','time','newtime')
@@ -157,9 +148,6 @@ def usertimetable(request):
     if currentday == "Saturday":
         table_data = timetable_variable.values('saturday','time','newtime')
     print(table_data ,"\n")
-    senduserid=uuid.uuid4()
-    print(senduserid)
-
     beams_client = PushNotifications(
     instance_id='55ce1d19-843c-4b89-8476-fa7f264cba16',
     secret_key='CD131592DFB7DAA3E3D7F5AC314182F0D26A7D08002D90A731733A75B390D3AA',
@@ -191,7 +179,6 @@ def usertimetable(request):
 )
     print(response['publishId'])
     contextusertimetable={
-                "senduserid":senduserid,
                 "welcomenote": usercreated.username,
                 "currentday": currentday,
                 "year":year,
@@ -262,7 +249,11 @@ def periodreturn(val):
         return 'p10'
 
 def buddyship(request):
-    return render(request,'buddyship.html')
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    context ={
+                "welcomenote": usercreated.username,
+            }
+    return render(request,'buddyship.html',context)
 
 def resultbuddyship(request):
     print('hello')
@@ -310,8 +301,16 @@ def resultbuddyship(request):
 def serviceworker(request):
     return render(request,'service-worker.js')
 
-def vacantvenue(request):
+def vacantvenues(request):
     usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    context={
+        "welcomenote": usercreated.username,
+    }
+    return render(request,'vacantvenue.html',context)
+
+def resultvacantvenue(request):
+    usercreated = RollNumber.objects.get(roll_number=request.user.username)
+    vacant={}
     if request.method =="POST":
         my_datetime_str = request.POST.get('datetime')
             # Convert the string to a datetime object
@@ -320,7 +319,33 @@ def vacantvenue(request):
             print(my_datetime)
             day_of_week = my_datetime.strftime('%A')
             time_of_day = my_datetime.strftime('%H:%M')
+            dummy_vacantvenue= vacantvenue.objects.filter(day=day_of_week,p1=0,p2=0,p3=0,p4=0,p5=0,p6=0,p7=0,p8=0,p9=0,p10=0)
+            if periodreturn(time_of_day)=='p1':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p2':
+                vacant=dummy_vacantvenue.get('room')
+                print(vacant.room)
+            if periodreturn(time_of_day)=='p3':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p4':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p5':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p6':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p7':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p8':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p9':
+                vacant=dummy_vacantvenue.values('room')
+            if periodreturn(time_of_day)=='p10':
+                vacant=dummy_vacantvenue.values('room')
+            print(vacantvenue)
+        else:
+            print("Error: my_datetime_str is None")
     context={
-        "welcomenote": usercreated.username,
+        'welcomenote':usercreated.username,
+        'vacantvenue':vacant
     }
-    return render(request,'vacantvenue.html',context)
+    return render(request,'resultvacantvenue.html',context)

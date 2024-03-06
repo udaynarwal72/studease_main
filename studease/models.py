@@ -39,3 +39,16 @@ class userfeedbacktable(models.Model):
     def __str__(self):
         return self.feedbackemail
 
+class vacantvenue(models.Model):
+    day = models.CharField(max_length=100)
+    room=models.CharField(max_length=100)
+    p1 = models.IntegerField(max_length=100)
+    p2 = models.IntegerField(max_length=100)
+    p3 = models.IntegerField(max_length=100)
+    p4 = models.IntegerField(max_length=100)
+    p5 = models.IntegerField(max_length=100)
+    p6 = models.IntegerField(max_length=100)
+    p7 = models.IntegerField(max_length=100)
+    p8 = models.IntegerField(max_length=100)
+    p9 = models.IntegerField(max_length=100)
+    p10 = models.IntegerField(max_length=100)
