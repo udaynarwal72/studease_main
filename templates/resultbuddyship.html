@@ -118,33 +118,68 @@
     flex-wrap:wrap;
     justify-content: space-evenly;
     ">
-        {% for entry in sub_section_free_value %}
-              <div id="name" class="item wow bounceInUp animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
-              visibility: visible;
-              -webkit-animation-duration: 1s;
-              -moz-animation-duration: 1s;
-              animation-duration: 1s;
-              -webkit-animation-delay: 0.5s;
-              -moz-animation-delay: 0.5s;
-              animation-delay: 0.5s;
-              height:100px;
-              width:100px;
-              margin:20px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              box-shadow:
-                inset 0 -3em 3em rgba(228, 178, 178, 0.915),
-                0 0 0 2px white,
-             0.3em 0.3em 1em rgba(162, 0, 0, 0.6);
-             border-radius: 20px;
-              ">
-              <div class="hidden-content">
-                <h4>{{entry.sub_section_name}}</h4>
-              </div>
-            </div>
+    {% if entry in sub_section_free_value %}
+    {% for entry in sub_section_free_value %}
+    <div id="name" class="item wow bounceInUp animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
+    visibility: visible;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    height:100px;
+    width:100px;
+    margin:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+    inset 0 -3em 3em rgba(228, 178, 178, 0.915),
+    0 0 0 2px white,
+    0.3em 0.3em 1em rgba(162, 0, 0, 0.6);
+    border-radius: 20px;
+    ">
+    <div class="hidden-content">
+        <h4>{{entry.sub_section_name}}</h4>
+    </div>
+</div>
 
 {% endfor %}
+{% else %}
+<div id="name" class="item wow bounceInUp animated" data-wow-duration="1s" data-wow-delay="0.5s" style="
+visibility: visible;
+-webkit-animation-duration: 1s;
+-moz-animation-duration: 1s;
+animation-duration: 1s;
+-webkit-animation-delay: 0.5s;
+-moz-animation-delay: 0.5s;
+animation-delay: 0.5s;
+height:100px;
+width:100px;
+margin:20px;
+display: flex;
+justify-content: center;
+align-items: center;
+align-self:center;
+justify-self:center;
+box-shadow:
+inset 0 -3em 3em rgba(228, 178, 178, 0.915),
+0 0 0 2px white,
+0.3em 0.3em 1em rgba(162, 0, 0, 0.6);
+border-radius: 20px;
+height:100px;
+width:100px;
+">
+<div class="hidden-content">
+    <h4>No data found</h4>
+</div>
+</div>
+{% endif %}
     </div>
 </div>
 {% endblock body %}
+
+{% comment %} room rover-vansh {% endcomment %}
+{% comment %} video-vansh {% endcomment %}
+{% comment %} vacantvenue-uday {% endcomment %}
