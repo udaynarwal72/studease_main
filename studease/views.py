@@ -160,7 +160,6 @@ def usertimetable(request):
     senduserid=uuid.uuid4()
     print(senduserid)
 
-
     beams_client = PushNotifications(
     instance_id='55ce1d19-843c-4b89-8476-fa7f264cba16',
     secret_key='CD131592DFB7DAA3E3D7F5AC314182F0D26A7D08002D90A731733A75B390D3AA',
@@ -239,35 +238,75 @@ def testweb(request):
 def usertimetableindex(request):
 
     return render(request,'usertimetableindex.html')
-
+#val:13:40:00
+def periodreturn(val):
+    if   '08:30' <val<'09:25':
+        return 'p1'
+    if   '09:25' <val<'10:40':
+        return 'p2'
+    if   '10:40' <val<'11:35':
+        return 'p3'
+    if   '11:35' <val<'12:30':
+        return 'p4'
+    if   '12:30' <val<'13:45':
+        return 'p5'
+    if   '13:45' <val<'14:40':
+        return 'p6'
+    if   '14:40' <val<'15:35':
+        return 'p7'
+    if   '15:35' <val<'16:30':
+        return 'p8'
+    if   '16:30' <val<'17:25':
+        return 'p9'
+    if   '17:25' <val<'18:20':
+        return 'p10'
 
 def buddyship(request):
-
-    if request.method =="POST":
-        usertimestart=request.POST.get('timestart')
-        usertimeend = request.POST.get('timeend')
-        userday=request.POST.get('')
-
+    print('hello')
     usercreated = RollNumber.objects.get(roll_number=request.user.username)
-    current_datetime = datetime.now()
-    year = current_datetime.year
-    month = current_datetime.strftime("%B")
-    date = current_datetime.day
-    hour = current_datetime.hour
-    minute = current_datetime.minute
-    second = current_datetime.second
-    currentday = current_datetime.strftime("%A")
-
-    time_empty= TimeTable.objects.filter(monday='')
-    print(time_empty.values('sub_section_id'))
-    # sub_section_available= time_empty.sub_section_name
-
-    # print(sub_section_available)
+    sub_section_free_value={}
+    if request.method == 'POST':
+        print('hi')
+        my_datetime_str = request.POST.get('datetime')
+        # Convert the string to a datetime object
+        if my_datetime_str is not None:
+            my_datetime = datetime.strptime(my_datetime_str, '%Y-%m-%dT%H:%M')
+            print(my_datetime)
+            day_of_week = my_datetime.strftime('%A')
+            time_of_day = my_datetime.strftime('%H:%M')
+            print(time_of_day)
+            if day_of_week =='Monday':
+                time_empty= TimeTable.objects.filter(monday='',period=periodreturn(time_of_day))
+                object_free_subsection=time_empty.values('sub_section_id')
+                sub_section_free=SubSection.objects.filter(id__in=object_free_subsection)
+                sub_section_free_value=sub_section_free.values('sub_section_name')
+            if day_of_week =='Tuesday':
+                time_empty= TimeTable.objects.filter(tuesday='',period=periodreturn(time_of_day))
+                object_free_subsection=time_empty.values('sub_section_id')
+                sub_section_free=SubSection.objects.filter(id__in=object_free_subsection)
+                sub_section_free_value=sub_section_free.values('sub_section_name')
+            if day_of_week =='Wednesday':
+                time_empty= TimeTable.objects.filter(wednesday='',period=periodreturn(time_of_day))
+                object_free_subsection=time_empty.values('sub_section_id')
+                sub_section_free=SubSection.objects.filter(id__in=object_free_subsection)
+                sub_section_free_value=sub_section_free.values('sub_section_name')
+            if day_of_week =='Thursday':
+                time_empty= TimeTable.objects.filter(thursday='',period=periodreturn(time_of_day))
+                object_free_subsection=time_empty.values('sub_section_id')
+                sub_section_free=SubSection.objects.filter(id__in=object_free_subsection)
+                sub_section_free_value=sub_section_free.values('sub_section_name')
+        else:
+            print("Error: my_datetime_str is None")
+        
     context ={
-        "welcomenote": usercreated.username,
-
-    }
+                "welcomenote": usercreated.username,
+                'sub_section_free_value':sub_section_free_value,
+            }
     return render(request,'buddyship.html',context)
 
 def serviceworker(request):
     return render(request,'service-worker.js')
+
+
+def resultbuddyship(request):
+    return render(request,'resultbuddyship.html')

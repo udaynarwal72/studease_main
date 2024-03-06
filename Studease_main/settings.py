@@ -97,7 +97,7 @@ DATABASES = {
 '''
 #linking mysql data base
 
-
+TIME_ZONE = 'Asia/Kolkata'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

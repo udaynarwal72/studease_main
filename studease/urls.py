@@ -30,5 +30,7 @@ urlpatterns = [
     path('webtest',views.testweb,name='webtest'),
     path('usertimetableindex',views.usertimetableindex,name='usertimetableindex'),
     path('buddyship',views.buddyship,name='buddyship'),
-    path('serviceworker', views.serviceworker,name='serviceworker')
+    path('serviceworker', views.serviceworker,name='serviceworker'),
+    path('resultbuddyship', views.resultbuddyship,name='resultbuddyship')
+
 ]
