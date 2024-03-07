@@ -7,7 +7,7 @@
   <script>
   {% block script %}{% endblock script %}
   </script>
-
+  <link rel="icon" href="{% static '/img/favicon.png' %}" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nabla&display=swap" rel="stylesheet">
@@ -84,13 +84,13 @@
                 <a href="index" class="">Home</a>
               </li>
               <li class="scroll-to-section">
-                <a href="#about" class="">About Us</a>
+                <a href="index" class="">About Us</a>
               </li>
               <li class="scroll-to-section">
-                <a href="#portfolio" class="">Services</a>
+                <a href="index" class="">Services</a>
               </li>
               <li class="scroll-to-section">
-                <a href="#contact">Message Us</a>
+                <a href="index">Message Us</a>
               </li>
               <li class="scroll-to-section"><a href="logout" class="logout">Logout</a></li>
               <li class="scroll-to-section"><div class="main-red-button"><a href="">HELLO, {% block hello %}{% endblock hello %}</a></div></li>
