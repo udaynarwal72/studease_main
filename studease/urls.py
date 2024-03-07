@@ -34,5 +34,6 @@ urlpatterns = [
     path('vacantvenue',views.vacantvenues,name='vacantvenue'),
     path('resultvacantvenue',views.resultvacantvenue,name='resultvacantvenue'),
     path('resultbuddyship',views.resultbuddyship,name='resultbuddyship'),
-    path('roomrover',views.roomrover,name='roomrover')
+    path('roomrover',views.roomrover,name='roomrover'),
+    path('explainedvenue',views.explainedvenue,name='explainedvenue')
 ]

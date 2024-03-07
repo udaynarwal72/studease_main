@@ -353,3 +353,6 @@ def resultvacantvenue(request):
 
 def roomrover(request):
     return render(request,'roomrover.html')
+
+def explainedvenue(request):
+    return render(request,'explainedvenue.html')
